@@ -1,0 +1,44 @@
+.navbar {
+    background-color: darkred;
+    color           : white;
+    text-align      : center;
+    width           : 100%;
+    padding-left    : 10px;
+    padding-right   : 10px;
+    padding-top     : 0;
+    padding-bottom  : 0;
+    margin          : 0;
+}
+
+.nav-c {
+    word-break : keep-all;
+    min-width  : fit-content;
+    height     : 4ex;
+    line-height: 3.5ex;
+}
+
+.nav-c a,
+.homepage a {
+    text-decoration: none;
+    color          : white;
+}
+
+.nav-c a,
+.homepage a:visited {
+    text-decoration: none;
+    color          : white;
+}
+
+.navgrow {
+    flex-grow: 100;
+}
+
+.header {
+    background-color: rgba(135, 206, 250, 0.1);
+    margin          : 0;
+}
+
+#overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100000;
+}
