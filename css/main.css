@@ -47,4 +47,5 @@
     height: 36px;
     justify-items: center;
     justify-content: center;
+    display: flex;
 }

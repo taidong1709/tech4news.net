@@ -1,14 +1,14 @@
 const NOT_LOGGED_IN = `
 <a onclick="changeOverlay('login+register')" style="text-decoration: none; color: rgba(0, 0, 255, 0.6); font-weight: 600;" href="#">
-    Đăng&nbsp;nhập&nbsp;/&nbsp;Đăng&nbsp;kí
+    Đăng\xA0nhập\xA0/\xA0Đăng\xA0kí
 </a>
 `;
 const LOGGED_IN = `
-<ellipse-img width="32" height="32" src="{{ AVATAR_URL }}"></ellipse-img>
-Xin chào {{ USER_NAME }}&nbsp;&nbsp;<a onclick="execLogout()">Thông tin</a>&nbsp;&nbsp;<a onclick="execLogout()">Đăng xuất</a>
+<ellipse-img width="32" height="32" src="{{ AVATAR_URL }}" style="margin-right: 6px;"></ellipse-img>
+{{ USER_NAME }}\xA0\xA0<a onclick="execLogout()" style="text-decoration: none; color: rgba(0, 0, 255, 0.6); font-weight: 600;" href="#">Đăng\xA0xuất</a>
 `;
 
-const BLANK_IMAGE = `data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==`;
+const BLANK_IMAGE = `/img/gender-neutral-user.svg`;
 
 (async () => {
     // Overlay injecting
@@ -99,7 +99,7 @@ const BLANK_IMAGE = `data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABA
                 // Logged in!
                 document.querySelector("#profile-info").innerHTML = LOGGED_IN
                     .replace("{{ AVATAR_URL }}", BLANK_IMAGE)
-                    .replace("{{ USER_NAME }}", user.displayName ?? user.uid);
+                    .replace("{{ USER_NAME }}", (user.displayName ?? user.uid).replace(/ /g, "\xA0"));
             } else {
                 // Logged out
                 document.querySelector("#profile-info").innerHTML = NOT_LOGGED_IN;
