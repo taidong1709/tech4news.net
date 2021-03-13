@@ -1,3 +1,15 @@
+const NOT_LOGGED_IN = `
+<a onclick="changeOverlay('login+register')" style="text-decoration: none; color: rgba(0, 0, 255, 0.6); font-weight: 600;" href="#">
+    Đăng&nbsp;nhập&nbsp;/&nbsp;Đăng&nbsp;kí
+</a>
+`;
+const LOGGED_IN = `
+<ellipse-img width="32" height="32" src="{{ AVATAR_URL }}"></ellipse-img>
+Xin chào {{ USER_NAME }}&nbsp;&nbsp;<a onclick="execLogout()">Thông tin</a>&nbsp;&nbsp;<a onclick="execLogout()">Đăng xuất</a>
+`;
+
+const BLANK_IMAGE = `data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==`;
+
 (async () => {
     // Overlay injecting
     {
@@ -15,7 +27,7 @@
                 }
             }
         }).mount("#overlay");
-    
+
         window.changeOverlay = async function changeOverlay(overlayName) {
             if (overlayName === "none") {
                 Object.assign(document.querySelector("#overlay").style, {
@@ -30,28 +42,30 @@
             } else {
                 let overlayDataJSON = await (await fetch(`overlay/${overlayName}.json`)).json();
                 let overlayData = await (await fetch(overlayDataJSON.url)).text();
-    
+
                 Object.assign(document.querySelector("#overlay").style, overlayDataJSON.style);
                 overlay.overlayData = overlayData;
             }
-    
+
             await new Promise(x => setTimeout(x, 200));
-    
+
             /** @type {HTMLScriptElement[]} */
             let oldScriptList = [...document.querySelectorAll(".overlay_script_reloaded")];
             oldScriptList.forEach(s => s.parentNode.removeChild(s));
-    
+
             /** @type {HTMLScriptElement[]} */
             let scriptList = [...document.querySelectorAll(".overlay_script_reload")];
             scriptList.forEach(s => {
                 let parentNode = s.parentNode;
                 parentNode.removeChild(s);
-    
+
                 let newScriptTag = document.createElement("script");
                 newScriptTag.innerHTML = s.innerHTML;
                 if (s.src) newScriptTag.src = s.src;
+                if (s.type) newScriptTag.type = s.type;
+                if (s.noModule) newScriptTag.noModule = s.noModule;
                 newScriptTag.onload = () => console.log("Reloaded script", newScriptTag);
-    
+
                 newScriptTag.classList.add("overlay_script_reloaded");
                 document.head.appendChild(newScriptTag);
             });
@@ -77,5 +91,24 @@
         });
 
         headerApp.mount("header");
+
+        let changedState = false;
+        firebase.auth().onAuthStateChanged(user => {
+            changedState = true;
+            if (user) {
+                // Logged in!
+                document.querySelector("#profile-info").innerHTML = LOGGED_IN
+                    .replace("{{ AVATAR_URL }}", BLANK_IMAGE)
+                    .replace("{{ USER_NAME }}", user.displayName ?? user.uid);
+            } else {
+                // Logged out
+                document.querySelector("#profile-info").innerHTML = NOT_LOGGED_IN;
+            }
+        });
+
+        await new Promise(x => setTimeout(x, 500));
+        if (!changedState) {
+            document.querySelector("#profile-info").innerHTML = NOT_LOGGED_IN;
+        }
     }
 })();

@@ -40,5 +40,11 @@
 
 #overlay {
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 100000;
+    z-index         : 100000;
+}
+
+#profile-info {
+    height: 36px;
+    justify-items: center;
+    justify-content: center;
 }
