@@ -12,6 +12,11 @@ let firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
+window.loginProvider = {
+    google: new firebase.auth.GoogleAuthProvider()
+}
+firebase.auth().languageCode = 'vi';
+
 window.execLogout = async function logout() {
     await firebase.auth().signOut();
 }

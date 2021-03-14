@@ -17,7 +17,7 @@ function formatDateTimeVN(date = new Date()) {
             dayofweek = "Thứ sáu"; break;
         case 6:
             dayofweek = "Thứ bảy"; break;
-        case 7:
+        case 0:
             dayofweek = "Chủ nhật"; break;
     }
 

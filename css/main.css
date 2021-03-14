@@ -49,3 +49,37 @@
     justify-content: center;
     display: flex;
 }
+
+.profile-info {
+    display: flex;
+    align-content: center;
+    cursor: pointer;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.profile-info:hover {
+    background-color: darkgray;
+    animation: pih 0.5s ease-in-out;
+}
+
+@keyframes pih {
+    from {
+        background-color: inherit;
+    }
+    to {
+        background-color: darkgray;
+    }
+}
+
+.signinOptions {
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 5px;
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    color: black;
+    vertical-align: middle;
+    text-align: center;
+}

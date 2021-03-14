@@ -4,8 +4,10 @@ const NOT_LOGGED_IN = `
 </a>
 `;
 const LOGGED_IN = `
-<ellipse-img width="32" height="32" src="{{ AVATAR_URL }}" style="margin-right: 6px;"></ellipse-img>
-{{ USER_NAME }}\xA0\xA0<a onclick="execLogout()" style="text-decoration: none; color: rgba(0, 0, 255, 0.6); font-weight: 600;" href="#">Đăng\xA0xuất</a>
+<div class="profile-info">
+    <ellipse-img width="32" height="32" src="{{ AVATAR_URL }}" style="margin-right: 4px; padding: 2px;"></ellipse-img>
+    {{ USER_NAME }}
+</div>\xA0\xA0<a onclick="execLogout()" style="text-decoration: none; color: rgba(0, 0, 255, 0.6); font-weight: 600;" href="#">Đăng\xA0xuất</a>
 `;
 
 const BLANK_IMAGE = `/img/gender-neutral-user.svg`;
@@ -97,9 +99,16 @@ const BLANK_IMAGE = `/img/gender-neutral-user.svg`;
             changedState = true;
             if (user) {
                 // Logged in!
+                if (window.loginWaitCredential) {
+                    if (user.email === loginWaitCredential.e) {
+                        user.linkWithCredential(loginWaitCredential.c);
+                        delete window.loginWaitCredential;
+                    }
+                }
+
                 document.querySelector("#profile-info").innerHTML = LOGGED_IN
                     .replace("{{ AVATAR_URL }}", BLANK_IMAGE)
-                    .replace("{{ USER_NAME }}", (user.displayName ?? user.uid).replace(/ /g, "\xA0"));
+                    .replace("{{ USER_NAME }}", (user.displayName ?? "Vô danh").replace(/ /g, "\xA0"));
             } else {
                 // Logged out
                 document.querySelector("#profile-info").innerHTML = NOT_LOGGED_IN;

@@ -131,7 +131,7 @@
     <div class="login-box">
         <div class="loginForm">
             <h1>Đăng nhập</h1>
-            <form id="loginPrompt">
+            <form action="#" method="dialog" class="floginPrompt">
                 <div class="textbox">
                     <i class="fas fa-user"></i>
                     <input name="email" type="text" placeholder="Email" autocomplete="email">
@@ -142,13 +142,15 @@
                     <input name="password" type="password" placeholder="Mật khẩu" autocomplete="current-password">
                 </div>
                 <input type="submit" class="btn" value="Đăng nhập">
-                <a href="#" onclick="loginChangeWindow('register')">Chưa có tài khoản? Đăng kí!</a>
+                <a href="#" onclick="loginChangeWindow('register')">Chưa có tài khoản? Đăng kí!</a><br>
+                Hoặc đăng nhập bằng...
+                <div class="signinOptions" id="googleLogIn"><i class="fab fa-google"></i></div>
             </form>
         </div>
 
         <div class="registerForm" style="display: none;">
             <h1>Đăng kí</h1>
-            <form id="registerPrompt">
+            <form action="#" method="dialog" class="fregisterPrompt">
                 <div class="textbox">
                     <i class="fas fa-user"></i>
                     <input name="email" type="text" placeholder="Email" autocomplete="email">
@@ -174,72 +176,50 @@
 </div>
 
 <script class="overlay_script_reload">
-    window.loginChangeWindow = async function loginChangeWindow(w) {
-        /** @type {HTMLDivElement} */
-        let SOURCE;
-        /** @type {HTMLDivElement} */
-        let TARGET;
+    {
+        window.loginChangeWindow = async function loginChangeWindow(w) {
+            /** @type {HTMLDivElement} */
+            let SOURCE;
+            /** @type {HTMLDivElement} */
+            let TARGET;
 
-        switch (w) {
-            case "register":
-                SOURCE = document.querySelector(".loginForm");
-                TARGET = document.querySelector(".registerForm");
-                break;
-            case "login":
-                SOURCE = document.querySelector(".registerForm");
-                TARGET = document.querySelector(".loginForm");
-                break;
-            default: return void 0;
-        }
-
-        SOURCE.classList.add("chide");
-        await new Promise(x => setTimeout(x, 490));
-        SOURCE.style.display = "none";
-        SOURCE.classList.remove("chide");
-
-        TARGET.classList.add("cshow");
-        TARGET.style.display = "block";
-        await new Promise(x => setTimeout(x, 490));
-        TARGET.classList.remove("cshow");
-    }
-
-    /** @type {HTMLFormElement} */
-    let lf = document.querySelector("#loginPrompt")
-    lf.addEventListener("submit", async ev => {
-        ev.preventDefault();
-        document.querySelector("#loginErrorMessage").innerHTML = "&nbsp;";
-
-        try {
-            await firebase.auth().signInWithEmailAndPassword(ev.target.email.value, ev.target.password.value);
-
-            changeOverlay("none");
-        } catch (e) {
-            let msg = "Lỗi không xác định.";
-            switch (e.code) {
-                case "auth/invalid-email":
-                    msg = "Lỗi: Email không hợp lệ."; break;
-                case "auth/user-disabled":
-                    msg = "Lỗi: Tài khoản này đã bị khoá."; break;
-                case "auth/user-not-found":
-                    msg = "Lỗi: Không tìm thấy tài khoản."; break;
-                case "auth/wrong-password":
-                    msg = "Lỗi: Sai mật khẩu."; break;
+            switch (w) {
+                case "register":
+                    SOURCE = document.querySelector(".loginForm");
+                    TARGET = document.querySelector(".registerForm");
+                    break;
+                case "login":
+                    SOURCE = document.querySelector(".registerForm");
+                    TARGET = document.querySelector(".loginForm");
+                    break;
+                default: return void 0;
             }
-            document.querySelector("#loginErrorMessage").innerHTML = msg;
+
+            document.querySelector("#loginErrorMessage").innerHTML = "&nbsp;";
+
+            SOURCE.classList.add("chide");
+            await new Promise(x => setTimeout(x, 450));
+            SOURCE.style.display = "none";
+            SOURCE.classList.remove("chide");
+
+            TARGET.classList.add("cshow");
+            TARGET.style.display = "block";
+            await new Promise(x => setTimeout(x, 450));
+            TARGET.classList.remove("cshow");
         }
-    });
 
-    /** @type {HTMLFormElement} */
-    let rf = document.querySelector("#registerPrompt")
-    rf.addEventListener("submit", async ev => {
-        ev.preventDefault();
-        document.querySelector("#loginErrorMessage").innerHTML = "&nbsp;";
+        window.clearPendingLoginLink = function clearPendingLoginLink() {
+            delete window.loginWaitCredential;
+            document.querySelector("#loginErrorMessage").innerHTML = "&nbsp;";
+        }
 
-        if (ev.target.password.value !== ev.target.retypePassword.value) {
-            document.querySelector("#loginErrorMessage").innerHTML = "Lỗi: Mật khẩu nhập không trùng khớp.";
-        } else {
+        /** @type {HTMLFormElement} */
+        let lf = document.querySelector(".floginPrompt")
+        lf.addEventListener("submit", async ev => {
+            ev.preventDefault();
+            document.querySelector("#loginErrorMessage").innerHTML = "&nbsp;";
+
             try {
-                await firebase.auth().createUserWithEmailAndPassword(ev.target.email.value, ev.target.password.value);
                 await firebase.auth().signInWithEmailAndPassword(ev.target.email.value, ev.target.password.value);
 
                 changeOverlay("none");
@@ -248,15 +228,68 @@
                 switch (e.code) {
                     case "auth/invalid-email":
                         msg = "Lỗi: Email không hợp lệ."; break;
-                    case "auth/email-already-in-use":
-                        msg = "Lỗi: Email này đã được sử dụng."; break;
-                    case "auth/operation-not-allowed":
-                        msg = "Lỗi không xác định."; break;
-                    case "auth/weak-password":
-                        msg = "Lỗi: Mật khẩu quá yếu."; break;
+                    case "auth/user-disabled":
+                        msg = "Lỗi: Tài khoản này đã bị khoá."; break;
+                    case "auth/user-not-found":
+                        msg = "Lỗi: Không tìm thấy tài khoản."; break;
+                    case "auth/wrong-password":
+                        msg = "Lỗi: Sai mật khẩu."; break;
                 }
                 document.querySelector("#loginErrorMessage").innerHTML = msg;
             }
-        }
-    });
+        });
+
+        /** @type {HTMLFormElement} */
+        let rf = document.querySelector(".fregisterPrompt")
+        rf.addEventListener("submit", async ev => {
+            ev.preventDefault();
+            document.querySelector("#loginErrorMessage").innerHTML = "&nbsp;";
+
+            if (ev.target.password.value !== ev.target.retypePassword.value) {
+                document.querySelector("#loginErrorMessage").innerHTML = "Lỗi: Mật khẩu nhập không trùng khớp.";
+            } else {
+                try {
+                    await firebase.auth().createUserWithEmailAndPassword(ev.target.email.value, ev.target.password.value);
+                    changeOverlay("none");
+                } catch (e) {
+                    let msg = "Lỗi không xác định.";
+                    switch (e.code) {
+                        case "auth/invalid-email":
+                            msg = "Lỗi: Email không hợp lệ."; break;
+                        case "auth/email-already-in-use":
+                            msg = "Lỗi: Email này đã được sử dụng."; break;
+                        case "auth/operation-not-allowed":
+                            msg = "Lỗi không xác định."; break;
+                        case "auth/weak-password":
+                            msg = "Lỗi: Mật khẩu quá yếu."; break;
+                    }
+                    document.querySelector("#loginErrorMessage").innerHTML = msg;
+                }
+            }
+        });
+
+        /** @type {HTMLDivElement} */
+        let googleSignIn = document.querySelector("#googleLogIn");
+        googleSignIn.addEventListener("click", async () => {
+            try {
+                await firebase.auth().signInWithPopup(loginProvider.google);
+                changeOverlay("none");
+            } catch (e) {
+                let msg = "Lỗi không xác định.";
+                switch (e.code) {
+                    case "auth/account-exists-with-different-credential":
+                        let em = await firebase.auth().fetchSignInMethodsForEmail(e.email);
+                        window.loginWaitCredential = { c: e.credential, e: e.email};
+                        msg = `Email của tài khoản Google này đã được đăng kí bằng ${em.join()}. Đăng nhập bằng phương pháp đó để liên kết, hoặc <a href="javascript:void(clearPendingLoginLink())">huỷ đăng nhập</a>.`; break;
+                    case "auth/operation-not-supported-in-this-environment":
+                        msg = "Lỗi: Kiểu đăng nhập không hỗ trợ giao thức đang chạy web này."; break;
+                    case "auth/popup-blocked":
+                        msg = "Lỗi: Popup bị chặn, không thể xác thực."; break;
+                    case "auth/unauthorized-domain":
+                        msg = "Lỗi: Tên miền của website không được chấp thuận."; break;
+                }
+                document.querySelector("#loginErrorMessage").innerHTML = msg;
+            }
+        });
+    }
 </script>
