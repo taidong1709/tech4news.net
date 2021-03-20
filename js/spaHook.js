@@ -2,10 +2,10 @@ setInterval(() => {
     [...document.querySelectorAll("a")].forEach(a => {
         if (!a.classList.contains("hookedSPA")) {
             a.addEventListener("click", e => {
-                console.log(e.target);
+                let a = e.target.closest("a");
                 e.preventDefault();
 
-                let newURL = new URL(e.target.href);
+                let newURL = new URL(a.href);
                 if (newURL.hostname === location.hostname) {
                     e.preventDefault();
 
@@ -18,3 +18,5 @@ setInterval(() => {
         }
     });
 });
+
+window.onpopstate = e => updateUseURL();
