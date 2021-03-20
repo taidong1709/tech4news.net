@@ -1,0 +1,10 @@
+.errpage {
+    text-align: center;
+    font-size: 60px;
+}
+
+.errmesspage {
+    text-align: center;
+    font-style: italic;
+    font-size: 17px;
+}
