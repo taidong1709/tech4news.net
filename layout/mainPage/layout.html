@@ -2,41 +2,37 @@
     <div style="margin-top: 20px;" class="col-md-9">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-8">
-                    <img style="width: 100%; height: 100%;"
-                        src="layout/articleView/img/Apple ngừng sản xuất loa HomePod/apple homepod.jpg" alt="">
-                </div>
-                <div class="col">
-                    <h4>Title của post chứa ảnh này</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum, delectus corrupti! Ipsa placeat
-                        dolorem ad molestiae corrupti nihil aperiam dignissimos, similique, excepturi nostrum aut quod
-                        et, optio qui debitis omnis.</p>
-                </div>
+                <a style="text-decoration: none; color: black;" v-bind:href="main.front.url">
+                    <div class="col-sm-8">
+                        <img style="width: 100%;" v-bind:src="main.front.thumbnail" alt="">
+                    </div>
+                    <div class="col">
+                        <h4>{{ main.front.title }}</h4>
+                        <p>{{ main.front.description }}</p>
+                    </div>
+                </a>
             </div>
 
             <div style="margin-top: 15px" class="row">
                 <div class="col-sm">
-                    <h5>Title post thứ 2</h5>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam numquam error, quam incidunt
-                        corporis, eum commodi pariatur aperiam ullam nulla, magnam laboriosam. Ipsam eos nulla eveniet
-                        atque, sapiente laboriosam quasi.
-                    </p>
+                    <a style="text-decoration: none; color: black;" v-bind:href="main.post1.url">
+                        <h5>{{ main.post1.title }}</h5>
+                        <p>{{ main.post1.description }}</p>
+                    </a>
                 </div>
 
                 <div class="col-sm">
-                    <h5>Title post thứ 3</h5>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At nulla labore, omnis alias blanditiis
-                        aliquid nihil qui tempora exercitationem, magni soluta commodi quaerat iure, veritatis amet
-                        consequatur tempore voluptatem velit!</p>
+                    <a style="text-decoration: none; color: black;" v-bind:href="main.post2.url">
+                        <h5>{{ main.post2.title }}</h5>
+                        <p>{{ main.post2.description }}</p>
+                    </a>
                 </div>
 
                 <div class="col-sm">
-                    <h5>Title post thứ 4</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis ipsa provident voluptas eos
-                        accusantium, iusto ducimus deleniti quae voluptatem facere sapiente dolores modi totam beatae
-                        adipisci expedita labore ullam eaque.
-
-                    </p>
+                    <a style="text-decoration: none; color: black;" v-bind:href="main.post3.url">
+                        <h5>{{ main.post3.title }}</h5>
+                        <p>{{ main.post3.description }}</p>
+                    </a>
                 </div>
             </div>
         </div>
@@ -49,26 +45,224 @@
 
 <div class="row">
     <div class="col-md-9">
-        <div style="border-top: 3px solid darkred; border-bottom: 3px solid darkred;">
-            <h5>Phần Mềm</h5>
-        </div>
-        <br>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm">
-                    <img style="width: 100%;"
-                        src="layout/articleView/img/Apple ngừng sản xuất loa HomePod/apple homepod.jpg" alt="">
-                </div>
+        <div class="catelogy">
+            <div class="catelogyTitle">
+                Phần mềm
+            </div><br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm">
+                        <a style="text-decoration: none; color: black;" href="#">
+                            <img style="width: 100%;" v-bind:src="catelogy.software.post1.thumbnail" alt="">
+                            <h4>{{ catelogy.software.post1.title }}</h4>
+                            <p style="font-size: 12px; color: gray;" class="infopost">{{ catelogy.software.post1.timestamp }}</p>
+                            <p style="color: rgb(100, 100, 100);">{{ catelogy.software.post1.description }}</p>
 
-                <div class="col-sm">
-                    <img style="width: 100%;"
-                        src="layout/articleView/img/Apple ngừng sản xuất loa HomePod/apple homepod.jpg" alt="">
+                            <div class="postList">
+                                <a v-bind:href="catelogy.software.post3.url">{{ catelogy.software.post3.title }}</a>
+                                <a v-bind:href="catelogy.software.post5.url">{{ catelogy.software.post5.title }}</a>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-sm">
+                        <a style="text-decoration: none; color: black;" href="#">
+                            <img style="width: 100%;" v-bind:src="catelogy.software.post2.thumbnail" alt="">
+                            <h4>{{ catelogy.software.post2.title }}</h4>
+                            <p style="font-size: 12px; color: gray;" class="infopost">{{ catelogy.software.post2.timestamp }}</p>
+                            <p style="color: rgb(100, 100, 100);">{{ catelogy.software.post2.description }}</p>
+
+                            <div class="postList">
+                                <a v-bind:href="catelogy.software.post4.url">{{ catelogy.software.post4.title }}</a>
+                                <a v-bind:href="catelogy.software.post6.url">{{ catelogy.software.post6.title }}</a>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-sm">
-                    
+        <div class="catelogy">
+            <div class="catelogyTitle">
+                Thủ thuật
+            </div><br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm">
+                        <a style="text-decoration: none; color: black;" href="#">
+                            <img style="width: 100%;" v-bind:src="catelogy.trick.post1.thumbnail" alt="">
+                            <h4>{{ catelogy.trick.post1.title }}</h4>
+                            <p style="font-size: 12px; color: gray;" class="infopost">{{ catelogy.trick.post1.timestamp }}</p>
+                            <p style="color: rgb(100, 100, 100);">{{ catelogy.trick.post1.description }}</p>
+
+                            <div class="postList">
+                                <a v-bind:href="catelogy.trick.post3.url">{{ catelogy.trick.post3.title }}</a>
+                                <a v-bind:href="catelogy.trick.post5.url">{{ catelogy.trick.post5.title }}</a>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-sm">
+                        <a style="text-decoration: none; color: black;" href="#">
+                            <img style="width: 100%;" v-bind:src="catelogy.trick.post2.thumbnail" alt="">
+                            <h4>{{ catelogy.trick.post2.title }}</h4>
+                            <p style="font-size: 12px; color: gray;" class="infopost">{{ catelogy.trick.post2.timestamp }}</p>
+                            <p style="color: rgb(100, 100, 100);">{{ catelogy.trick.post2.description }}</p>
+
+                            <div class="postList">
+                                <a v-bind:href="catelogy.trick.post4.url">{{ catelogy.trick.post4.title }}</a>
+                                <a v-bind:href="catelogy.trick.post6.url">{{ catelogy.trick.post6.title }}</a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="catelogy">
+            <div class="catelogyTitle">
+                Giải trí
+            </div><br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm">
+                        <a style="text-decoration: none; color: black;" href="#">
+                            <img style="width: 100%;" v-bind:src="catelogy.relax.post1.thumbnail" alt="">
+                            <h4>{{ catelogy.relax.post1.title }}</h4>
+                            <p style="font-size: 12px; color: gray;" class="infopost">{{ catelogy.relax.post1.timestamp }}</p>
+                            <p style="color: rgb(100, 100, 100);">{{ catelogy.relax.post1.description }}</p>
+
+                            <div class="postList">
+                                <a v-bind:href="catelogy.relax.post3.url">{{ catelogy.relax.post3.title }}</a>
+                                <a v-bind:href="catelogy.relax.post5.url">{{ catelogy.relax.post5.title }}</a>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-sm">
+                        <a style="text-decoration: none; color: black;" href="#">
+                            <img style="width: 100%;" v-bind:src="catelogy.relax.post2.thumbnail" alt="">
+                            <h4>{{ catelogy.relax.post2.title }}</h4>
+                            <p style="font-size: 12px; color: gray;" class="infopost">{{ catelogy.relax.post2.timestamp }}</p>
+                            <p style="color: rgb(100, 100, 100);">{{ catelogy.relax.post2.description }}</p>
+
+                            <div class="postList">
+                                <a v-bind:href="catelogy.relax.post4.url">{{ catelogy.relax.post4.title }}</a>
+                                <a v-bind:href="catelogy.relax.post6.url">{{ catelogy.relax.post6.title }}</a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="catelogy">
+            <div class="catelogyTitle">
+                Game
+            </div><br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm">
+                        <a style="text-decoration: none; color: black;" href="#">
+                            <img style="width: 100%;" v-bind:src="catelogy.game.post1.thumbnail" alt="">
+                            <h4>{{ catelogy.game.post1.title }}</h4>
+                            <p style="font-size: 12px; color: gray;" class="infopost">{{ catelogy.game.post1.timestamp }}</p>
+                            <p style="color: rgb(100, 100, 100);">{{ catelogy.game.post1.description }}</p>
+
+                            <div class="postList">
+                                <a v-bind:href="catelogy.game.post3.url">{{ catelogy.game.post3.title }}</a>
+                                <a v-bind:href="catelogy.game.post5.url">{{ catelogy.game.post5.title }}</a>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-sm">
+                        <a style="text-decoration: none; color: black;" href="#">
+                            <img style="width: 100%;" v-bind:src="catelogy.game.post2.thumbnail" alt="">
+                            <h4>{{ catelogy.game.post2.title }}</h4>
+                            <p style="font-size: 12px; color: gray;" class="infopost">{{ catelogy.game.post2.timestamp }}</p>
+                            <p style="color: rgb(100, 100, 100);">{{ catelogy.game.post2.description }}</p>
+
+                            <div class="postList">
+                                <a v-bind:href="catelogy.game.post4.url">{{ catelogy.game.post4.title }}</a>
+                                <a v-bind:href="catelogy.game.post6.url">{{ catelogy.game.post6.title }}</a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="catelogy">
+            <div class="catelogyTitle">
+                Thiết bị công nghệ
+            </div><br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm">
+                        <a style="text-decoration: none; color: black;" href="#">
+                            <img style="width: 100%;" v-bind:src="catelogy.techdevice.post1.thumbnail" alt="">
+                            <h4>{{ catelogy.techdevice.post1.title }}</h4>
+                            <p style="font-size: 12px; color: gray;" class="infopost">{{ catelogy.techdevice.post1.timestamp }}</p>
+                            <p style="color: rgb(100, 100, 100);">{{ catelogy.techdevice.post1.description }}</p>
+
+                            <div class="postList">
+                                <a v-bind:href="catelogy.techdevice.post3.url">{{ catelogy.techdevice.post3.title }}</a>
+                                <a v-bind:href="catelogy.techdevice.post5.url">{{ catelogy.techdevice.post5.title }}</a>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-sm">
+                        <a style="text-decoration: none; color: black;" href="#">
+                            <img style="width: 100%;" v-bind:src="catelogy.techdevice.post2.thumbnail" alt="">
+                            <h4>{{ catelogy.techdevice.post2.title }}</h4>
+                            <p style="font-size: 12px; color: gray;" class="infopost">{{ catelogy.techdevice.post2.timestamp }}</p>
+                            <p style="color: rgb(100, 100, 100);">{{ catelogy.techdevice.post2.description }}</p>
+
+                            <div class="postList">
+                                <a v-bind:href="catelogy.techdevice.post4.url">{{ catelogy.techdevice.post4.title }}</a>
+                                <a v-bind:href="catelogy.techdevice.post6.url">{{ catelogy.techdevice.post6.title }}</a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="catelogy">
+            <div class="catelogyTitle">
+                Dịch vụ
+            </div><br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm">
+                        <a style="text-decoration: none; color: black;" href="#">
+                            <img style="width: 100%;" v-bind:src="catelogy.service.post1.thumbnail" alt="">
+                            <h4>{{ catelogy.service.post1.title }}</h4>
+                            <p style="font-size: 12px; color: gray;" class="infopost">{{ catelogy.service.post1.timestamp }}</p>
+                            <p style="color: rgb(100, 100, 100);">{{ catelogy.service.post1.description }}</p>
+
+                            <div class="postList">
+                                <a v-bind:href="catelogy.service.post3.url">{{ catelogy.service.post3.title }}</a>
+                                <a v-bind:href="catelogy.service.post5.url">{{ catelogy.service.post5.title }}</a>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-sm">
+                        <a style="text-decoration: none; color: black;" href="#">
+                            <img style="width: 100%;" v-bind:src="catelogy.service.post2.thumbnail" alt="">
+                            <h4>{{ catelogy.service.post2.title }}</h4>
+                            <p style="font-size: 12px; color: gray;" class="infopost">{{ catelogy.service.post2.timestamp }}</p>
+                            <p style="color: rgb(100, 100, 100);">{{ catelogy.service.post2.description }}</p>
+
+                            <div class="postList">
+                                <a v-bind:href="catelogy.service.post4.url">{{ catelogy.service.post4.title }}</a>
+                                <a v-bind:href="catelogy.service.post6.url">{{ catelogy.service.post6.title }}</a>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

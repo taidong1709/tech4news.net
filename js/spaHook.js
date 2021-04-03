@@ -6,7 +6,7 @@ setInterval(() => {
                 e.preventDefault();
 
                 let newURL = new URL(a.href);
-                if (newURL.hostname === location.hostname) {
+                if (newURL.hostname === location.hostname && !newURL.hash) {
                     e.preventDefault();
 
                     window.history.pushState("", "", `${newURL.pathname}${newURL.search}`);

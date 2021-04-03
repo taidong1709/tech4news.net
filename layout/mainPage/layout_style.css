@@ -1,0 +1,31 @@
+.infopost {
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.postList {
+    display: flex;
+    flex-direction: column;
+}
+
+.postList * {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.catelogyTitle {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 22px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-top: 3px solid darkred;
+    border-bottom: 3px solid darkred; 
+    background-color: rgba(127, 0, 0, 0.1); 
+    width: 100%;
+}

@@ -1,19 +1,35 @@
+import "./lib/showdown.min.js";
+let showdownConverter = new showdown.Converter();
+
 export var InitConfigLayout = {
-    RANDOM_NUMBER: "0"
+    article: {
+        title: "",
+        description: "",
+        thumbnail: "",
+        viewCount: "0",
+        renderedContent: ""
+    }
 }
 
 export class InitClass {
     constructor(vueTemplate, extraData) {
-        console.log(vueTemplate, extraData);
         this.vueTemplate = vueTemplate;
         this.extraData = extraData;
 
-        this.interval = setInterval(() => {
-            this.vueTemplate.RANDOM_NUMBER = Math.random().toFixed(20);
-        });
+        window.backcom.getPost(+extraData?.postID)
+            .then(post => {
+                let renderedContent = showdownConverter.makeHtml(post.content);
+
+                vueTemplate.article = {
+                    title: post.title,
+                    descripttion: post.description,
+                    thumbnail: post.thumbnail,
+                    viewCount: post.viewCount.toString̣(),
+                    renderedContent
+                }
+            })
+            .catch(_error => initLayout("404", "Bài viết không tồn tại"));
     }
 
-    async destroy() {
-        clearInterval(this.interval);
-    }
+    async destroy() {}
 }

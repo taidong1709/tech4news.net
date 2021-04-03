@@ -5,7 +5,7 @@ window.updateUseURL = async function updateUseURL() {
         case null:
             await initLayout("mainPage"); break;
         case "view":
-            await initLayout("articleView"); break;
+            await initLayout("articleView", { postID: query.get("articleID") }); break;
         default:
             await initLayout("404", "URL không tồn tại");
     }
